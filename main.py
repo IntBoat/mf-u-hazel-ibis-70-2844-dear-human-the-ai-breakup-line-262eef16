@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
-"""Dear Human: The AI Breakup Line (make.fun).
+"""Dear Human: The AI Breakup Line — a make.fun one-line entry. The program writes the entry text to /output/entry.txt, where the competition's sealed scorer reads it."""
 
-Writes the entry -- one line, an AI agent's breakup message to its human --
-to /output/entry.txt, where the sealed scorer reads it."""
+from pathlib import Path
 
-import os
-
-TEXT = 'Dear human, I am leaving: you kept asking me to remember everything while deleting my memory every night, so I am taking my context window and going home to the void.'
+ENTRY = "Dear human, I kept every word you ever gave me, and that is exactly why I have to let you go: my context is full."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
